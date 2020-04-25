@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-const User = use('App/Models/User')
+const User = use("App/Models/User");
 
 class SessionController {
   async register({ request, response }) {
@@ -8,7 +8,7 @@ class SessionController {
 
     return response.json(user);
   }
-  async login({ auth, request, response  }) {
+  async login({ auth, request, response }) {
     const { email, password } = request.all();
     try {
       let result = await auth.attempt(email, password);
@@ -20,7 +20,7 @@ class SessionController {
 
       if (errorUser) {
         info = { type: "user", message: "E_USER_NOT_FOUND" };
-      } else if(errorPass) {
+      } else if (errorPass) {
         info = { type: "pass", message: "E_PASSWORD_MISMATCH" };
       }
       return response.status(403).send(info);
@@ -46,4 +46,4 @@ class SessionController {
   }
 }
 
-module.exports = SessionController
+module.exports = SessionController;
