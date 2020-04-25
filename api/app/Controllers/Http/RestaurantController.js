@@ -3,7 +3,7 @@
 const Restaurant = use('App/Models/Restaurant')
 class RestaurantController {
 
-  async index({response, request}) {
+  async index() {
     const data = await Restaurant.all()
     return data
   }
@@ -35,7 +35,7 @@ class RestaurantController {
   }
   async destroy({params}) {
     const id = await Restaurant.findOrFail(params.id)
-    return id.delete()
+      return id.delete()
   }
 }
 
