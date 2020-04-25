@@ -18,4 +18,6 @@ const Route = use('Route')
 
 Route.on('/').render('welcome')
 
-
+Route.resource('restaurant', 'RestaurantController').apiOnly().validator(new Map([
+  [['restaurant.store'], ['Restaurant']]
+]))

@@ -1,0 +1,11 @@
+http://127.0.0.1:3333/restaurant
+[ get ]
+
+http://127.0.0.1:3333/restaurant/2
+[destroy]
+
+http://127.0.0.1:3333/restaurant
+[post]
+
+http://127.0.0.1:3333/restaurant/3
+[patch]
