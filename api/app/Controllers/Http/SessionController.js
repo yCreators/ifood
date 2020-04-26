@@ -1,6 +1,7 @@
 "use strict";
 
-const User = use("App/Models/User");
+const User = use("App/Models/User")
+const { validate } = use('Validator')
 
 class SessionController {
 
@@ -9,7 +10,7 @@ class SessionController {
     return view.render('all', {users: data.toJSON() } )
   }
   async register({ request, response }) {
-    let user = await User.create(request.all());
+    let user = await User.create(request.all())
     const existsEmail = await User.findBy('email', user.email)
 
     if(existsEmail)
@@ -18,18 +19,28 @@ class SessionController {
       return response.json(user);
   }
 
-  async create({request,response}) {
-    let username = request.input('username')
-    let email = request.input('email')
-    let password = request.input('password')
+  async create({request,response, session}) {
 
-    const created = new User()
-    created.name = username,
-    contact.email = email,
-    contact.password = password,
+    const validator = await validate(request.all(), {
+      username: 'required',
+      email: 'required|email|unique:users,email',
+      password: 'required'
+    })
 
-    await created.save()
-    return response.json(created)
+    if(validator.fails()) {
+      session.withErrors(validator.messages()).flashAll()
+      return response.redirect('back')
+    }
+
+    const u = new User()
+
+    u.username = request.input('username')
+    u.email = request.input('email')
+    u.password = request.input('password')
+
+    await u.save()
+
+    session.flash({ notification: 'User added! '})
   }
   async login({ auth, request, response, view }) {
     const { email, password } = request.all();

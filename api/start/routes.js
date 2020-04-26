@@ -27,12 +27,12 @@ Route.group(() => {
   Route.post("/register", "SessionController.register"); // register user
   Route.post("/crud", "SessionController.create"); // register user
 })
-  .middleware(["guest"])
-  .prefix("api/v1");
+.middleware(["guest"])
+.prefix("api/v1");
 
 
 Route.get('/register', ({ view }) => {
-  return view.render('register_user')
+  return view.render('register.register_user')
 })
 
   // log
