@@ -3,11 +3,11 @@
 const Restaurant = use('App/Models/Restaurant')
 class RestaurantController {
 
-  async index() {
+  async index({ view }) {
     const data = await Restaurant.all()
-    return data
+    return view.render('restaurant', {restaurant: data.toJSON()})
   }
-  async store ({ request, response }) {
+  async store ({ request, response, }) {
     const data = request.all()
     try {
       const created = Restaurant.create(data)

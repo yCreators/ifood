@@ -21,6 +21,10 @@ Route.resource("restaurant", "RestaurantController")
   .apiOnly()
   .validator(new Map([[["restaurant.store"], ["Restaurant"]]]));
 
+Route.get('restaurant', ({ view }) => {
+  return view.render('restaurant')
+})
+
 // deslog
 Route.group(() => {
   Route.post("/login", "SessionController.login"); // login
