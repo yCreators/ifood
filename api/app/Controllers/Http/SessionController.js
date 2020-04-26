@@ -60,11 +60,13 @@ class SessionController {
       return response.status(403).send(info);
     }
   }
-  async show({ auth, params }) {
+  async show({ auth, params, view }) {
+    const user = auth.user
     if (auth.user.id !== Number(params.id)) {
       return "Usuário com id diferente do parametro";
     }
-    return auth.user;
+
+    return view.render('findUserById', { user: user.toJSON() })
   }
 
   async logout({ response, auth }) {
