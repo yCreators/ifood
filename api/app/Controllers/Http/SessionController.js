@@ -3,6 +3,11 @@
 const User = use("App/Models/User");
 
 class SessionController {
+
+  async index({ view }) {
+    const data = await User.all()
+    return view.render('all', {users: data.toJSON() } )
+  }
   async register({ request, response }) {
     let user = await User.create(request.all());
 
@@ -33,7 +38,7 @@ class SessionController {
     return auth.user;
   }
 
-  async logout({ request, response, auth }) {
+  async logout({ response, auth }) {
     try {
       const isLogeddin = await auth.check();
       if (isLogeddin) {

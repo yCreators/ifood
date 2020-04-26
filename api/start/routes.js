@@ -32,6 +32,7 @@ Route.group(() => {
   // log
 Route.group(() => {
   Route.get("users/:id", "SessionController.show").middleware("auth"); // find user id
+  Route.get("users", "SessionController.index").middleware("auth"); // find user id
   Route.get("/logout", "SessionController.logout"); // logout
 })
   .middleware(["auth"])
