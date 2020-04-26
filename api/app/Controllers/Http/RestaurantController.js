@@ -6,28 +6,32 @@ const Mail = use('Mail')
 class RestaurantController {
 
   async index({ view, response }) {
-    // const data = await Restaurant.all()
-    const filtered = await Restaurant.query().where('id','=',2).orderBy('name').firstOrFail()
-    const email = `${Env.get('EMAIL_TEST')}`
+    const data = await Restaurant.all()
+    // const filtered = await Restaurant.query().where('id','=',2).orderBy('name').firstOrFail()
+    // const email = `${Env.get('EMAIL_TEST')}`
 
-    try{
-      await Mail.send('email_restaurant', filtered.toJSON(), m => {
-        m.to('vitor.brother17@outlook.com.br').from(email).subject('Você foi cadastrado na plataforma | iFood Jaguaré')
-      })
-      return response.status(200).json({
-        success: `Parabéns ${filtered.name}. Você foi cadastrado`,
-        data: filtered
-      })
-    }
-    catch(error){
-      return response.send({
-        error: 'Error sending the e-mail'
-      })
-    }
-    // return view.render('restaurant', {restaurant: data.toJSON()})
+    // try{
+    //   await Mail.send('email_restaurant', filtered.toJSON(), m => {
+    //     m.to('vitor.brother17@outlook.com.br').from(email).subject('Você foi cadastrado na plataforma | iFood Jaguaré')
+    //   })
+    //   return response.status(200).json({
+    //     success: `Parabéns ${filtered.name}. Você foi cadastrado`,
+    //     data: filtered
+    //   })
+    // }
+    // catch(error){
+    //   return response.send({
+    //     error: 'Error sending the e-mail'
+    //   })
+    // }
+    return view.render('restaurant', {restaurant: data.toJSON()})
   }
   async store ({ request, response, }) {
     const data = request.all()
+    const existsEmail = await Restaurant.findBy('email', data.email)
+
+    if(existsEmail)
+      return response.status(400).send({ message: { err: 'Email already registered'}})
     try {
       const created = Restaurant.create(data)
 

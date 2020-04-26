@@ -10,8 +10,26 @@ class SessionController {
   }
   async register({ request, response }) {
     let user = await User.create(request.all());
+    const existsEmail = await User.findBy('email', user.email)
 
-    return response.json(user);
+    if(existsEmail)
+      return response.status(400).send({ message: { err: `${data.email} already registered` }})
+    else
+      return response.json(user);
+  }
+
+  async create({request,response}) {
+    let username = request.input('username')
+    let email = request.input('email')
+    let password = request.input('password')
+
+    const created = new User()
+    created.name = username,
+    contact.email = email,
+    contact.password = password,
+
+    await created.save()
+    return response.json(created)
   }
   async login({ auth, request, response, view }) {
     const { email, password } = request.all();
@@ -33,7 +51,7 @@ class SessionController {
   }
   async show({ auth, params }) {
     if (auth.user.id !== Number(params.id)) {
-      return "Usuário com id diferente do parametr";
+      return "Usuário com id diferente do parametro";
     }
     return auth.user;
   }

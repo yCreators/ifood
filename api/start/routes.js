@@ -25,9 +25,15 @@ Route.resource("restaurant", "RestaurantController")
 Route.group(() => {
   Route.post("/login", "SessionController.login"); // login
   Route.post("/register", "SessionController.register"); // register user
+  Route.post("/crud", "SessionController.create"); // register user
 })
   .middleware(["guest"])
   .prefix("api/v1");
+
+
+Route.get('/register', ({ view }) => {
+  return view.render('register_user')
+})
 
   // log
 Route.group(() => {
