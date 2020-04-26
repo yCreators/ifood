@@ -21,10 +21,6 @@ Route.resource("restaurant", "RestaurantController")
   .apiOnly()
   .validator(new Map([[["restaurant.store"], ["Restaurant"]]]));
 
-Route.get('restaurant', ({ view }) => {
-  return view.render('restaurant')
-})
-
 // deslog
 Route.group(() => {
   Route.post("/login", "SessionController.login"); // login
@@ -33,7 +29,7 @@ Route.group(() => {
   .middleware(["guest"])
   .prefix("api/v1");
 
-// log
+  // log
 Route.group(() => {
   Route.get("users/:id", "SessionController.show").middleware("auth"); // find user id
   Route.get("/logout", "SessionController.logout"); // logout

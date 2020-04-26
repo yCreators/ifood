@@ -8,11 +8,11 @@ class SessionController {
 
     return response.json(user);
   }
-  async login({ auth, request, response }) {
+  async login({ auth, request, response, view }) {
     const { email, password } = request.all();
     try {
       let result = await auth.attempt(email, password);
-      return result;
+      return view.render('login', { login: result.toJSON() });
     } catch (error) {
       let errorUser = error.message.startsWith("E_USER_NOT_FOUND");
       let errorPass = error.message.startsWith("E_PASSWORD_MISMATCH");
