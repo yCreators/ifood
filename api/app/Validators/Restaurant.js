@@ -36,12 +36,12 @@ class Restaurant {
       'email.email': 'email not valid',
       'email.secondary_email': 'secondary email not valid',
 
-      'name.min': 'cnpj must be at least 5 characters',
-      'email.min': 'cnpj must be at least 5 characters',
-      'secondary_email.min': 'cnpj must be at least 5 characters',
-      'city.min': 'cnpj must be at least 2 characters',
-      'state.min': 'cnpj must be at least 2 characters',
-      'zipcode.min': 'cnpj must be at least 8 characters',
+      'name.min': 'name must be at least 5 characters',
+      'email.min': 'email must be at least 5 characters',
+      'secondary_email.min': 'secondary_email must be at least 5 characters',
+      'city.min': 'city must be at least 2 characters',
+      'state.min': 'state must be at least 2 characters',
+      'zipcode.min': 'zipcode must be at least 8 characters',
     }
   }
   async fails (errorMessages) {

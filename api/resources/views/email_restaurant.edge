@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dados do restaurant</title>
+  </head>
+  <body>
+    <center>
+      <h4>Parabéns <span style="color: green">{{upperFirst(name) }}</span> foi cadastrado na plataforna iFood Jaguaré</h4>
+      <span>Seus dados abaixo</span>
+       <br>
+       <br>
+
+            <span>Razão Social:&nbsp;{{social_reason}}</span>
+            <br>
+            <span>Nome:&nbsp;{{name}}</span>
+            <br>
+            <span>Telefone:&nbsp;{{phone}}</span>
+            <br>
+            <span>Email:&nbsp;{{email}}</span>
+            <br>
+            <span>Email secundário:&nbsp;
+              @if(secondary_email === null)
+                Não informado
+                <br>
+              @else
+                {{secondary_email}}
+                <br>
+              @endif
+            </span>
+            <span>Cidade:&nbsp;{{city}}</span>
+            <br>
+            <span>Estado:&nbsp;{{state}}</span>
+            <br>
+            <span>CEP:&nbsp;{{zipcode}}</span>
+            <br>
+            <span>Complemento:&nbsp;
+              @if(complement === null)
+                Não informado
+                <br>
+              @else
+                {{complement}}
+                <br>
+              @endif
+            </span>
+            <span>Especialidade:&nbsp;{{specialty}}</span>
+            <br>
+            <span>Delivery:&nbsp;
+              @if(delivery === 1)
+                Sim
+                <br>
+              @else
+                Não
+                <br>
+              @endif
+            </span>
+    </center>
+  </body>
+</html>

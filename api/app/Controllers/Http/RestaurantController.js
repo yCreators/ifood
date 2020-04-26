@@ -1,11 +1,30 @@
 'use strict'
 
 const Restaurant = use('App/Models/Restaurant')
+const Env = use('Env')
+const Mail = use('Mail')
 class RestaurantController {
 
-  async index({ view }) {
-    const data = await Restaurant.all()
-    return view.render('restaurant', {restaurant: data.toJSON()})
+  async index({ view, response }) {
+    // const data = await Restaurant.all()
+    const filtered = await Restaurant.query().where('id','=',2).orderBy('name').firstOrFail()
+    const email = `${Env.get('EMAIL_TEST')}`
+
+    try{
+      await Mail.send('email_restaurant', filtered.toJSON(), m => {
+        m.to('vitor.brother17@outlook.com.br').from(email).subject('Você foi cadastrado na plataforma | iFood Jaguaré')
+      })
+      return response.status(200).json({
+        success: `Parabéns ${filtered.name}. Você foi cadastrado`,
+        data: filtered
+      })
+    }
+    catch(error){
+      return response.send({
+        error: 'Error sending the e-mail'
+      })
+    }
+    // return view.render('restaurant', {restaurant: data.toJSON()})
   }
   async store ({ request, response, }) {
     const data = request.all()
