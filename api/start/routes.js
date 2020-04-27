@@ -21,6 +21,17 @@ Route.resource("restaurant", "RestaurantController")
   .apiOnly()
   .validator(new Map([[["restaurant.store"], ["Restaurant"]]]));
 
+Route.post('/registerRestaurant', 'RestaurantController.create').prefix('api/v1')
+Route.get("/register", ({ view }) => {
+  return view.render("register.register_user");
+});
+// Route.get("/api/v1/registerRestaurant", ({ view }) => {
+//   return view.render("register.register_restaurant");
+// });
+
+
+
+
 // deslog
 Route.group(() => {
   Route.post("/login", "SessionController.login"); // login
@@ -44,9 +55,6 @@ Route.group(() => {
   .middleware(["guest"])
   .prefix("api/v1");
 
-Route.get("/register", ({ view }) => {
-  return view.render("register.register_user");
-});
 
 // log
 Route.group(() => {
