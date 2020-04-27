@@ -26,16 +26,29 @@ Route.group(() => {
   Route.post("/login", "SessionController.login"); // login
   Route.post("/register", "SessionController.register"); // register user
   Route.post("/crud", "SessionController.create"); // register user
+
+  Route.get("/categories", "CategoryController.index");
+  Route.get("/categories/:id", "CategoryController.show");
+  Route.post("/categories", "CategoryController.store");
+  Route.delete("/categories/:id", "CategoryController.destroy");
+  Route.put("/categories/:id", "CategoryController.update");
+
+  Route.get("/food", "FoodController.index");
+  Route.post("/food", "FoodController.store");
+  Route.get("/food/:id", "FoodController.show");
+  Route.put("/food/:id", "FoodController.update");
+  Route.delete("/food/:id", "FoodController.destroy");
+
+  Route.get("/categoryFood/:id", "FoodController.categoryFood");
 })
-.middleware(["guest"])
-.prefix("api/v1");
+  .middleware(["guest"])
+  .prefix("api/v1");
 
+Route.get("/register", ({ view }) => {
+  return view.render("register.register_user");
+});
 
-Route.get('/register', ({ view }) => {
-  return view.render('register.register_user')
-})
-
-  // log
+// log
 Route.group(() => {
   Route.get("users/:id", "SessionController.show").middleware("auth"); // find user id specific
   Route.get("users", "SessionController.index").middleware("auth"); // find all users
